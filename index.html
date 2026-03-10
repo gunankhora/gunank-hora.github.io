@@ -1,1 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gunank Hora — Portfolio | Automotive Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #050d1a;
+    --navy2: #0b1628;
+    --card: #0f1f35;
+    --blue: #00b4d8;
+    --blue2: #0077b6;
+    --orange: #f4813f;
+    --green: #39d353;
+    --text: #d0dff0;
+    --muted: #7a9bbf;
+    --border: rgba(0,180,216,0.18);
+    --glow: 0 0 30px rgba(0,180,216,0.12);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(5,13,26,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .nav-brand { font-weight: 700; font-size: 0.9rem; color: var(--blue); letter-spacing: 0.04em; }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--blue); }
 
+  .hero {
+    min-height: 100vh;
+    padding: 120px 2rem 80px;
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,119,182,0.18) 0%, transparent 70%), var(--navy);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(0,180,216,0.04) 60px),
+                repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(0,180,216,0.04) 60px);
+  }
+  .hero-inner { position: relative; max-width: 900px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,180,216,0.1); border: 1px solid rgba(0,180,216,0.3);
+    color: var(--blue); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
+    padding: 5px 14px; border-radius: 99px; margin-bottom: 1.6rem;
+    text-transform: uppercase;
+  }
+  .hero-tag .dot { width: 7px; height: 7px; background: var(--blue); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .hero h1 { font-size: clamp(2rem,5vw,3.6rem); font-weight: 700; line-height: 1.15; margin-bottom: 0.6rem; }
+  .hero h1 span { color: var(--blue); }
+  .hero-sub { font-size: 1.1rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .hero-meta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; margin-top: 1.5rem; }
+  .pill {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    color: var(--muted); font-size: 0.78rem; padding: 5px 14px; border-radius: 99px;
+    font-weight: 500;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 28px; border-radius: 8px; font-weight: 600; font-size: 0.88rem;
+    text-decoration: none; transition: all 0.2s; border: none; cursor: pointer;
+  }
+  .btn-primary { background: var(--blue); color: #fff; }
+  .btn-primary:hover { background: var(--blue2); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,180,216,0.3); }
+
+  section { padding: 80px 2rem; max-width: 1200px; margin: 0 auto; }
+  .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.6rem; }
+  h2 { font-size: clamp(1.8rem,3vw,2.4rem); font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+  .section-intro { color: var(--muted); max-width: 700px; margin-bottom: 3rem; font-size: 0.97rem; }
+
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2rem;
+    box-shadow: var(--glow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex; flex-direction: column;
+  }
+  .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,180,216,0.18); }
+  .project-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.7rem; }
+  .project-card h3 { font-size: 1.2rem; font-weight: 600; color: #fff; margin-bottom: 0.6rem; }
+  .project-card p { color: var(--muted); font-size: 0.88rem; margin-bottom: 1rem; flex-grow: 1; }
+  .project-meta { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+  .tag { font-size: 0.7rem; font-weight: 600; padding: 3px 10px; border-radius: 5px; background: rgba(255,255,255,0.06); color: var(--muted); border: 1px solid rgba(255,255,255,0.1); }
+  .project-link { color: var(--blue); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; }
+  .project-link:hover { color: var(--blue2); }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+  .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; text-align: center; }
+  .skill-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+  .skill-card h3 { font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 0.4rem; }
+  .skill-card p { font-size: 0.78rem; color: var(--muted); }
+
+  .contact { text-align: center; padding: 3rem 0; }
+  .contact p { margin-bottom: 0.8rem; }
+  .contact a { color: var(--blue); text-decoration: none; font-weight: 600; }
+  .contact a:hover { color: var(--blue2); }
+
+  footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.78rem; border-top: 1px solid var(--border); }
+  @media(max-width:768px) { .projects-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Gunank Hora</div>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag"><span class="dot"></span>Automotive Engineer</div>
+    <h1>HV Batteries <span>&</span><br>Drivetrain Systems</h1>
+    <p class="hero-sub">Design · Simulation · Testing · Electromobility</p>
+    <div class="hero-meta">
+      <span class="pill">MATLAB / Simulink</span>
+      <span class="pill">FEM & CAD</span>
+      <span class="pill">Python</span>
+      <span class="pill">Sensitivity Analysis</span>
+    </div>
+    <a href="#projects" class="btn btn-primary">View Projects ↓</a>
+  </div>
+</header>
+
+<section id="projects">
+  <div class="section-label">Portfolio</div>
+  <h2>Featured Projects</h2>
+  <p class="section-intro">
+    A selection of automotive engineering projects spanning HV battery development, drivetrain design, FEM simulation, and electromobility research.
+  </p>
+
+  <div class="projects-grid">
+    
+    <div class="project-card">
+      <div class="project-tag">Master Thesis</div>
+      <h3>HV Battery Tolerance Analysis</h3>
+      <p>Quantified effects of hardware, electrical, and software tolerances on battery KPIs and ageing using MATLAB/Simulink thermo-electric modeling, Monte Carlo sensitivity analysis, and Morris Elementary Effects ranking.</p>
+      <div class="project-meta">
+        <span class="tag">MATLAB</span>
+        <span class="tag">Simulink</span>
+        <span class="tag">Sensitivity Analysis</span>
+        <span class="tag">Monte Carlo</span>
+      </div>
+      <a href="/gunank-hora.github.io/mercedes-benz" class="project-link">View Project →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">Formula E Internship</div>
+      <h3>Differential Gear Design & Optimization</h3>
+      <p>Designed and optimized novel differential gear for electric race car using PTC Creo CAD, FEM topology optimization, and sensitivity analysis — achieving >10% weight reduction with improved stiffness.</p>
+      <div class="project-meta">
+        <span class="tag">CAD</span>
+        <span class="tag">FEM</span>
+        <span class="tag">Topology Opt.</span>
+      </div>
+      <a href="#" class="project-link">Coming Soon →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">Self-Initiated</div>
+      <h3>Axiolift Electric Truck</h3>
+      <p>Designed electric powertrain for commercial truck: PMSM motor sizing, gearbox ratio optimization, MATLAB drivetrain simulation, and testbed implementation for validation.</p>
+      <div class="project-meta">
+        <span class="tag">MATLAB</span>
+        <span class="tag">Drivetrain</span>
+        <span class="tag">PMSM</span>
+      </div>
+      <a href="#" class="project-link">Coming Soon →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">Research Project</div>
+      <h3>HV Battery & Microgrid Modeling</h3>
+      <p>Designed hybrid microgrid with energy storage: cell chemistry selection, battery lifecycle prediction, load profiling, CAPEX/OPEX analysis for renewable integration in stationary applications.</p>
+      <div class="project-meta">
+        <span class="tag">Battery Modeling</span>
+        <span class="tag">System Design</span>
+      </div>
+      <a href="#" class="project-link">Coming Soon →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">Bachelor Thesis</div>
+      <h3>PMSM Rotor Unbalance & Press-Fit Analysis</h3>
+      <p>Evaluated shaft-hub connections via tolerance analysis and FMEA; designed servo press alignment; tested rotor unbalance effects on vibration through experimental testing and bearing load calculations.</p>
+      <div class="project-meta">
+        <span class="tag">FMEA</span>
+        <span class="tag">Testing</span>
+        <span class="tag">Analysis</span>
+      </div>
+      <a href="#" class="project-link">Coming Soon →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">Design Project</div>
+      <h3>4WD Tractor & Gearbox</h3>
+      <p>Designed 5-speed manual transmission for agricultural tractor: shaft/bearing sizing, gear strength analysis, drivetrain integration, and differential mechanism for 4WD capability.</p>
+      <div class="project-meta">
+        <span class="tag">Mechanical Design</span>
+        <span class="tag">CAD</span>
+      </div>
+      <a href="#" class="project-link">Coming Soon →</a>
+    </div>
+
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-label">Core Competencies</div>
+  <h2>Technical Skills</h2>
+  <p class="section-intro">
+    Deep expertise in automotive engineering: battery systems, drivetrain design, simulation, testing, and electromobility — supported by proficiency in industry-standard tools and methodologies.
+  </p>
+
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">⚙️</div>
+      <h3>Simulation & CAE</h3>
+      <p>MATLAB/Simulink, FEM (Abaqus, PTC Creo Simulate), ANSYS, multi-physics modeling</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔧</div>
+      <h3>CAD & Design</h3>
+      <p>PTC Creo 4.0, 2D/3D modeling, topology optimization, design for manufacturability</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔋</div>
+      <h3>HV Batteries</h3>
+      <p>Cell chemistry, thermal modeling, BMS, state estimation, tolerance analysis, lifetime prediction</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⚡</div>
+      <h3>Drivetrains</h3>
+      <p>Motor sizing, gearbox design, power electronics, drivetrain dynamics simulation</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <h3>Data & Analysis</h3>
+      <p>Python, statistical methods, Monte Carlo, sensitivity analysis, signal processing</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🧪</div>
+      <h3>Testing & Validation</h3>
+      <p>Testbed design, vibration analysis, thermal testing, measurement systems</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <h2>Get in Touch</h2>
+  <p style="margin-bottom:1.5rem">Open to opportunities in HV battery development, drivetrain design, and electromobility — based in Germany.</p>
+  <p><a href="mailto:gunankhora@gmail.com">✉ gunankhora@gmail.com</a></p>
+  <p><a href="https://linkedin.com/in/gunank-hora" target="_blank">🔗 linkedin.com/in/gunank-hora</a></p>
+  <p style="font-size:0.85rem;color:var(--muted);margin-top:1.5rem">Böblingen, Germany · +49 176 7544 7074</p>
+</section>
+
+<footer>
+  <p>© 2025 Gunank Hora · Portfolio · <a href="https://github.com/gunankhora" style="color:var(--blue)">GitHub</a></p>
+</footer>
+
+</body>
+</html>
