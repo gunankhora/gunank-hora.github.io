@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gunank Hora | HV Battery Tolerance Analysis – Mercedes-Benz</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #050d1a;
+    --navy2: #0b1628;
+    --card: #0f1f35;
+    --card2: #132540;
+    --blue: #00b4d8;
+    --blue2: #0077b6;
+    --orange: #f4813f;
+    --green: #39d353;
+    --text: #d0dff0;
+    --muted: #7a9bbf;
+    --border: rgba(0,180,216,0.18);
+    --glow: 0 0 30px rgba(0,180,216,0.12);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(5,13,26,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .nav-brand { font-weight: 700; font-size: 0.9rem; color: var(--blue); letter-spacing: 0.04em; }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.02em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--blue); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    padding: 120px 2rem 80px;
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,119,182,0.18) 0%, transparent 70%), var(--navy);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(0,180,216,0.04) 60px), repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(0,180,216,0.04) 60px);
+  }
+  .hero-inner { position: relative; max-width: 820px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,180,216,0.1); border: 1px solid rgba(0,180,216,0.3);
+    color: var(--blue); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
+    padding: 5px 14px; border-radius: 99px; margin-bottom: 1.6rem;
+    text-transform: uppercase;
+  }
+  .hero-tag .dot { width: 7px; height: 7px; background: var(--blue); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .hero h1 { font-size: clamp(2rem,5vw,3.4rem); font-weight: 700; line-height: 1.15; margin-bottom: 0.6rem; }
+  .hero h1 span { color: var(--blue); }
+  .hero-sub { font-size: 1.1rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .hero-company {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--orange); font-weight: 600; font-size: 0.95rem; margin-bottom: 2rem;
+  }
+  .hero-meta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .pill {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    color: var(--muted); font-size: 0.78rem; padding: 5px 14px; border-radius: 99px;
+    font-weight: 500;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 28px; border-radius: 8px; font-weight: 600; font-size: 0.88rem;
+    text-decoration: none; transition: all 0.2s; border: none; cursor: pointer;
+  }
+  .btn-primary { background: var(--blue); color: #fff; }
+  .btn-primary:hover { background: var(--blue2); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,180,216,0.3); }
+  .btn-ghost { background: transparent; color: var(--muted); border: 1px solid rgba(255,255,255,0.15); }
+  .btn-ghost:hover { color: var(--text); border-color: var(--blue); }
+  section { padding: 80px 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 10px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 60px; }
+  h2 { font-size: clamp(1.6rem,3vw,2.2rem); font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+  .section-intro { color: var(--muted); max-width: 680px; margin-bottom: 3rem; font-size: 0.97rem; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.8rem; box-shadow: var(--glow); transition: transform 0.2s, box-shadow 0.2s; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,180,216,0.18); }
+  .card-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.7rem; }
+  .card h3 { font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: 0.5rem; }
+  .card p { color: var(--muted); font-size: 0.88rem; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  @media(max-width:768px) { .grid-2,.grid-3 { grid-template-columns: 1fr; } }
+  .diagram { width: 100%; border-radius: 10px; border: 1px solid var(--border); background: #fff; display: block; }
+  .diagram-caption { text-align: center; color: var(--muted); font-size: 0.78rem; margin-top: 0.6rem; font-style: italic; }
+  .diagram-wrap { margin-bottom: 1rem; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+  .disclaimer { background: rgba(244,129,63,0.07); border: 1px solid rgba(244,129,63,0.2); border-radius: 10px; padding: 1.2rem 1.5rem; display: flex; gap: 12px; align-items: flex-start; }
+  .disclaimer-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+  .disclaimer p { color: var(--muted); font-size: 0.84rem; }
+  .disclaimer strong { color: var(--orange); }
+  footer { text-align: center; padding: 3rem 2rem; color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--border); }
+  footer a { color: var(--blue); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Gunank Hora · Portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#context">Context</a></li>
+    <li><a href="#model">Model</a></li>
+    <li><a href="#tolerances">Tolerances</a></li>
+    <li><a href="#analysis">Analysis</a></li>
+    <li><a href="#kpis">KPIs</a></li>
+    <li><a href="mailto:gunankhora@gmail.com">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag"><span class="dot"></span>Master Thesis · Jan–Sep 2025</div>
+    <h1>HV Battery <span>Tolerance Analysis</span><br>& Sensitivity Study</h1>
+    <p class="hero-sub">How HW · EE · SW tolerances shape battery KPIs and ageing</p>
+    <div class="hero-company">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M12 2L2 12l10 10 10-10z" fill="currentColor" opacity="0.3"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+      Mercedes-Benz AG · HV Battery R&D · Stuttgart
+    </div>
+    <div class="hero-meta">
+      <span class="pill">MATLAB / Simulink</span>
+      <span class="pill">Thermo-Electric Model</span>
+      <span class="pill">Monte Carlo</span>
+      <span class="pill">Morris EE</span>
+      <span class="pill">Li-NMC Chemistry</span>
+    </div>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="#context" class="btn btn-primary">Explore Project ↓</a>
+      <a href="mailto:gunankhora@gmail.com" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+</header>
+
+<section id="context">
+  <div class="section-label">Background</div>
+  <h2>Why Tolerance Analysis Matters</h2>
+  <p class="section-intro">
+    In mass-produced lithium-ion battery packs, no two cells are identical. Manufacturing spreads, sensor biases, and software estimation errors all compound — impacting charging time, discharge power, and long-term ageing differently for each customer.
+  </p>
+  <div class="card">
+    <div class="card-label">Thesis Focus</div>
+    <h3>Quantifying HW · EE · SW Tolerance Effects</h3>
+    <p>Investigated how hardware (cell manufacturing spread), electrical (sensor errors), and software (BMS estimation) tolerances interact to shape key performance indicators (charging time, discharge power, energy capacity) and battery ageing over lifetime — from BOL to EOL.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="model">
+  <div class="section-label">Virtual Model</div>
+  <h2>Thermo-Electric Battery Model in MATLAB/Simulink</h2>
+  <p class="section-intro">
+    A two-cell thermo-electric model representing the full 192-cell Li-NMC pack in series configuration — validated to capture electrochemical and thermal dynamics with high fidelity.
+  </p>
+  <div class="card">
+    <div class="card-label">Model Architecture</div>
+    <h3>ECM + Thermal Coupling</h3>
+    <p><strong>Electrical:</strong> Equivalent Circuit Model (ECM) with single R-C Pair Thevenin representation captures terminal voltage as function of OCV(SOC,T), impedance Z_eq(SOC,T), and current. <strong>Thermal:</strong> Bernardi model computes heat generation from ohmic and entropic sources; coolant heat exchange models realistic thermal propagation.</p>
+    <p style="margin-top:0.8rem;font-size:0.9rem"><strong>Terminal Voltage Equation:</strong></p>
+    <p style="font-family:'JetBrains Mono',monospace;background:rgba(0,0,0,0.3);padding:0.8rem;border-radius:6px;font-size:0.85rem;color:#a8d8ea">v_bat(t) = v_OCV(SOC,T) + Z_eq(SOC,T) · i_bat(t)</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="tolerances">
+  <div class="section-label">Tolerance Landscape</div>
+  <h2>HW · EE · SW Sources</h2>
+  <p class="section-intro">
+    Tolerances span three domains — each affecting different system layers and interacting through the BMS control loop.
+  </p>
+  <div class="grid-3">
+    <div class="card" style="border-top:2px solid var(--orange)">
+      <div class="card-label" style="color:var(--orange)">⬡ Hardware (HW)</div>
+      <h3>Cell Manufacturing</h3>
+      <p>Capacity spread, internal resistance variation, OCV scatter, coolant temperature variance.</p>
+    </div>
+    <div class="card" style="border-top:2px solid var(--blue)">
+      <div class="card-label" style="color:var(--blue)">⬡ Electrical (EE)</div>
+      <h3>Sensor Errors</h3>
+      <p>Voltage (V), current (I), temperature (T) sensor biases and noise — feed into BMS estimation.</p>
+    </div>
+    <div class="card" style="border-top:2px solid var(--green)">
+      <div class="card-label" style="color:var(--green)">⬡ Software (SW)</div>
+      <h3>BMS Algorithms</h3>
+      <p>SOC estimation error, capacity estimation error, passive cell balancing inaccuracies.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="analysis">
+  <div class="section-label">Analysis Methods</div>
+  <h2>Three-Layer Sensitivity Study</h2>
+  <p class="section-intro">
+    Applied sequentially from deterministic sweeps to full probabilistic global analysis.
+  </p>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-label">①  LSA — Morris EE</div>
+      <h3>Local Sensitivity</h3>
+      <p>Parameter sweeps within tolerance bands; Elementary Effects method ranks parameters by influence on KPIs without full probabilistic sampling.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">② MC-OAT</div>
+      <h3>One-at-a-Time Monte Carlo</h3>
+      <p>Normal distributions applied to one parameter at a time; output KPI distributions analysed via mean shift and spread — accounts for probability of occurrence.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">③ GSA — Monte Carlo</div>
+      <h3>Global Sensitivity</h3>
+      <p>All tolerances simultaneously sampled. Captures real-world interactions and compounding effects. KPI distributions compared at BOL vs. EOL.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="kpis">
+  <div class="section-label">KPIs Evaluated</div>
+  <h2>Performance Metrics at BOL & EOL</h2>
+  <p class="section-intro">
+    Evaluated under customer-relevant operating conditions at beginning of life (BOL) and end of life (EOL).
+  </p>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label">⬆ Charging — 10%→80% SOC, T₀ = 23°C</div>
+      <ul style="list-style:none;margin-top:0.8rem">
+        <li style="color:var(--muted);font-size:0.88rem;margin-bottom:0.5rem">• Total charging time</li>
+        <li style="color:var(--muted);font-size:0.88rem;margin-bottom:0.5rem">• Energy charged in first 10 min</li>
+        <li style="color:var(--muted);font-size:0.88rem">• Maximum achievable charging power</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-label">⬇ Discharging — 30 s peak demand cycle</div>
+      <ul style="list-style:none;margin-top:0.8rem">
+        <li style="color:var(--muted);font-size:0.88rem;margin-bottom:0.5rem">• Maximum available discharge power</li>
+        <li style="color:var(--muted);font-size:0.88rem;margin-bottom:0.5rem">• Power after 10 s, 20 s, 30 s</li>
+        <li style="color:var(--muted);font-size:0.88rem">• Under warm (80% SOC, 25°C) & cold (15% SOC, −7°C)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section style="padding-top:40px;padding-bottom:60px">
+  <div class="disclaimer">
+    <div class="disclaimer-icon">🔒</div>
+    <div>
+      <p><strong>Confidentiality Notice:</strong> This project was conducted as a Master's Thesis at Mercedes-Benz AG under a non-disclosure agreement. Simulation results, numerical KPI values, and internal system specifications are classified and cannot be shared publicly. The diagrams, methodology, and technical approach shown here are based on academic literature and published fundamentals.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p style="margin-bottom:0.4rem;font-size:0.9rem;color:var(--text);font-weight:600">Gunank Hora · M.Sc. Fahrzeugtechnik — RWTH Aachen</p>
+  <p style="margin-bottom:1rem">HV Battery Development · Drivetrain Simulation · Electromobility</p>
+  <p>
+    <a href="mailto:gunankhora@gmail.com">gunankhora@gmail.com</a> &nbsp;·&nbsp;
+    <a href="https://linkedin.com/in/gunank-hora" target="_blank">linkedin.com/in/gunank-hora</a> &nbsp;·&nbsp;
+    Böblingen, Germany
+  </p>
+  <p style="margin-top:1.5rem;opacity:0.4;font-size:0.72rem">© 2025 Gunank Hora · Portfolio</p>
+</footer>
+
+</body>
+</html>
+```
+
+6. Scroll down → Click **"Commit new file"** ✓
+
+Done! Your Mercedes page is live at:
+```
+https://gunankhora.github.io/mercedes
